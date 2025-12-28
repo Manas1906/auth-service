@@ -4,6 +4,7 @@ package com.freshlink.auth.service;
 
 import com.freshlink.auth.dto.LoginRequest;
 import com.freshlink.auth.dto.RegisterRequest;
+import com.freshlink.auth.dto.UserProfileResponse;
 import com.freshlink.auth.model.User;
 import com.freshlink.auth.repository.UserRepository;
 import com.freshlink.auth.security.JwtUtil;
@@ -46,4 +47,10 @@ public class AuthService {
 
         return jwtUtil.generateToken(user.getEmail(), user.getRole());
     }
+
+    public UserProfileResponse getProfile(String email) {
+        User user = repo.findByEmail(email).orElseThrow();
+        return new UserProfileResponse(user.getFullName(), user.getEmail(), user.getRole());
+    }
+
 }
