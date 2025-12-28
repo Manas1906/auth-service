@@ -1,6 +1,7 @@
 package com.freshlink.auth.security;
 
 import com.freshlink.auth.model.Role;
+import io.jsonwebtoken.Claims;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -32,6 +33,17 @@ public class JwtUtil {
                 .getSubject();
     }
 
+    public Claims validateToken(String token) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(SECRET.getBytes())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            return null;
+        }
+    }
     public String extractRole(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET.getBytes())
