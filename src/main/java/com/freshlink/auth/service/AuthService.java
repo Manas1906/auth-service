@@ -35,7 +35,8 @@ public class AuthService {
         u.setRole(req.getRole());
         repo.save(u);
 
-        return jwtUtil.generateToken(u.getEmail(), u.getRole());
+        return jwtUtil.generateToken(u.getId(), u.getEmail(), u.getRole());
+
     }
 
     public String login(LoginRequest req) {
@@ -45,7 +46,8 @@ public class AuthService {
         if (!encoder.matches(req.getPassword(), user.getPassword()))
             throw new RuntimeException("Invalid password");
 
-        return jwtUtil.generateToken(user.getEmail(), user.getRole());
+        return jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole());
+
     }
 
     public UserProfileResponse getProfile(String email) {
