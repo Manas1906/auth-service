@@ -1,5 +1,5 @@
 package com.freshlink.auth.security;
-
+import com.freshlink.auth.security.filter.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,9 +11,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final JwtFilter filter;
+    private final JwtAuthFilter filter;
 
-    public SecurityConfig(JwtFilter filter) {
+    public SecurityConfig(JwtAuthFilter filter) {
         this.filter = filter;
     }
 
